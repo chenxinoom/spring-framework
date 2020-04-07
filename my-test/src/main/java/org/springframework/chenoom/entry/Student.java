@@ -12,4 +12,8 @@ public class Student {
 	@Getter @Setter
 	private String name;
 
+	public Student(){
+		System.out.println("student");
+	}
+
 }

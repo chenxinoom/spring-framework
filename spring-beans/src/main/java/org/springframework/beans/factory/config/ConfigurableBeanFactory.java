@@ -74,6 +74,7 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	 * a parent BeanFactory
 	 * @see #getParentBeanFactory()
 	 */
+	//设置父容器
 	void setParentBeanFactory(BeanFactory parentBeanFactory) throws IllegalStateException;
 
 	/**
@@ -242,6 +243,7 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
 	 * will always be applied after programmatically registered ones.
 	 * @param beanPostProcessor the post-processor to register
 	 */
+	//添加 后置处理器
 	void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
 
 	/**

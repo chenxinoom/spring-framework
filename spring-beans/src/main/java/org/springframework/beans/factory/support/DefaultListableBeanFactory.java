@@ -120,6 +120,7 @@ import org.springframework.util.StringUtils;
  * @see #resolveDependency
  */
 @SuppressWarnings("serial")
+//是一个spring中很重要的ioc实现 比如applicationcontext和xmlbeanfactory都是拓展来获取ioc的基本功能
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
 		implements ConfigurableListableBeanFactory, BeanDefinitionRegistry, Serializable {
 

@@ -54,15 +54,18 @@ import org.springframework.core.io.Resource;
 @SuppressWarnings({"serial", "all"})
 public class XmlBeanFactory extends DefaultListableBeanFactory {
 
+	//处理xml文件的beandefinition 这些xml形式的信息都是靠做这个来处理的
 	private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 
 	/**
 	 * Create a new XmlBeanFactory with the given resource,
 	 * which must be parsable using DOM.
+	 * 该资源必须得dom能解析
 	 * @param resource the XML resource to load bean definitions from
 	 * @throws BeansException in case of loading or parsing errors
 	 */
+	//rosource 是spring中封装io操作的类
 	public XmlBeanFactory(Resource resource) throws BeansException {
 		this(resource, null);
 	}
@@ -76,6 +79,7 @@ public class XmlBeanFactory extends DefaultListableBeanFactory {
 	 */
 	public XmlBeanFactory(Resource resource, BeanFactory parentBeanFactory) throws BeansException {
 		super(parentBeanFactory);
+		//从Resource中载入Beandifinitons的过程
 		this.reader.loadBeanDefinitions(resource);
 	}
 

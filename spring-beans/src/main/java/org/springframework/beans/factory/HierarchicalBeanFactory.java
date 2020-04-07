@@ -36,6 +36,7 @@ public interface HierarchicalBeanFactory extends BeanFactory {
 	/**
 	 * Return the parent bean factory, or {@code null} if there is none.
 	 */
+	//获取父容器 父子容器管理的功能
 	@Nullable
 	BeanFactory getParentBeanFactory();
 

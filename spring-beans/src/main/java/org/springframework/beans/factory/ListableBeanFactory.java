@@ -85,6 +85,7 @@ public interface ListableBeanFactory extends BeanFactory {
 	 * @return the names of all beans defined in this factory,
 	 * or an empty array if none defined
 	 */
+	//获取beandefinitionnames的方法
 	String[] getBeanDefinitionNames();
 
 	/**

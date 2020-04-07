@@ -125,6 +125,7 @@ import org.springframework.util.ReflectionUtils;
  * @see org.springframework.context.ApplicationListener
  * @see org.springframework.context.MessageSource
  */
+//具备了ResourceLoader读入以Resource定义的BeanDefinition的能力 因为继承了DefaultResourceLoader类
 public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		implements ConfigurableApplicationContext {
 
@@ -512,6 +513,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		return this.applicationListeners;
 	}
 
+	//容器是靠这个来启动的
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
@@ -529,6 +531,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				//扫描符合spring的类的路径
+				//执行spring对外postProcessors接口的实现类，可以达到和spring一起创建springbean对象，比如mybatis实现这个接口实现mybatis的功能
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
@@ -547,6 +551,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
+				//创建bean对象
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -634,6 +639,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
+		//AbstractRefreshableApplicationContext类中refreshBeanFactory方法 来实现Reasource的定位
 		refreshBeanFactory();
 		return getBeanFactory();
 	}
@@ -875,6 +881,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
+		//创建单例对象
 		beanFactory.preInstantiateSingletons();
 	}
 

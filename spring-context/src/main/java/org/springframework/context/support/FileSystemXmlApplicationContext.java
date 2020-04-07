@@ -53,6 +53,8 @@ import org.springframework.lang.Nullable;
  * @see #getResourceByPath
  * @see GenericApplicationContext
  */
+//来说明 applicationcontext容器的设计原理
+	//在abstractXmlapplicationContext类中已经实现了应用上下文的功能
 public class FileSystemXmlApplicationContext extends AbstractXmlApplicationContext {
 
 	/**
@@ -103,6 +105,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	 * @param parent the parent context
 	 * @throws BeansException if context creation failed
 	 */
+	//这个构造方法 多个beanDefinition的路径 和 指定自己的双亲ioc容器
 	public FileSystemXmlApplicationContext(String[] configLocations, ApplicationContext parent) throws BeansException {
 		this(configLocations, true, parent);
 	}
@@ -132,6 +135,8 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	 * @throws BeansException if context creation failed
 	 * @see #refresh()
 	 */
+	//第一个功能 实例化应用上下文的支持
+	//调用refresh()方法进行载入beandefinition
 	public FileSystemXmlApplicationContext(
 			String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
 			throws BeansException {
@@ -139,6 +144,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 		super(parent);
 		setConfigLocations(configLocations);
 		if (refresh) {
+			//ioc容器的启动
 			refresh();
 		}
 	}
@@ -153,6 +159,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	 * @return the Resource handle
 	 * @see org.springframework.web.context.support.XmlWebApplicationContext#getResourceByPath
 	 */
+	//第二个功能 加载系统中xml资源
 	@Override
 	protected Resource getResourceByPath(String path) {
 		if (path.startsWith("/")) {

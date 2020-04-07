@@ -113,6 +113,7 @@ import org.springframework.lang.Nullable;
  * @see DisposableBean#destroy
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
  */
+//ioc的核心接口，提供了最基本的ioc容器的功能
 public interface BeanFactory {
 
 	/**
@@ -215,6 +216,7 @@ public interface BeanFactory {
 	 * @since 5.1
 	 * @see #getBeanProvider(ResolvableType)
 	 */
+	//Provider提供者  获取bean的提供者
 	<T> ObjectProvider<T> getBeanProvider(Class<T> requiredType);
 
 	/**
@@ -247,7 +249,9 @@ public interface BeanFactory {
 	 * will be able to obtain an instance for the same name.
 	 * @param name the name of the bean to query
 	 * @return whether a bean with the given name is present
+	 * 在容器中包含name的bean？
 	 */
+	//是否包含bean
 	boolean containsBean(String name);
 
 	/**
@@ -265,6 +269,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isPrototype
 	 */
+	//是否是单例
 	boolean isSingleton(String name) throws NoSuchBeanDefinitionException;
 
 	/**
@@ -283,6 +288,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isSingleton
 	 */
+	//是否为原型
 	boolean isPrototype(String name) throws NoSuchBeanDefinitionException;
 
 	/**
@@ -300,6 +306,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #getType
 	 */
+	//指定名字的bean是否和指定的的类型匹配
 	boolean isTypeMatch(String name, ResolvableType typeToMatch) throws NoSuchBeanDefinitionException;
 
 	/**
@@ -355,6 +362,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isTypeMatch
 	 */
+	//获取指定名字的bean的类型
 	@Nullable
 	Class<?> getType(String name, boolean allowFactoryBeanInit) throws NoSuchBeanDefinitionException;
 
@@ -369,6 +377,7 @@ public interface BeanFactory {
 	 * @return the aliases, or an empty array if none
 	 * @see #getBean
 	 */
+	//获取指定名字的bean的别名
 	String[] getAliases(String name);
 
 }

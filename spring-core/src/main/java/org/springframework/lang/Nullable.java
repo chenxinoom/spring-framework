@@ -27,8 +27,8 @@ import javax.annotation.meta.TypeQualifierNickname;
 import javax.annotation.meta.When;
 
 /**
- * A common Spring annotation to declare that annotated elements can be {@code null} under
- * some circumstance.
+ * A common Spring annotation to declare（声明） that annotated elements can be {@code null} under
+ * some circumstance（环境）.
  *
  * <p>Leverages JSR-305 meta-annotations to indicate nullability in Java to common
  * tools with JSR-305 support and used by Kotlin to infer nullability of Spring API.
@@ -51,5 +51,6 @@ import javax.annotation.meta.When;
 @Documented
 @Nonnull(when = When.MAYBE)
 @TypeQualifierNickname
+//可以为空
 public @interface Nullable {
 }
