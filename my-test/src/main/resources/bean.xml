@@ -3,7 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="xml" class="org.springframework.chenoom.entry.xml" >
-
+	<bean id="xml" class="org.springframework.chenoom.entry.xml" scope="singleton" >
+		<property name="name" value="chen"></property>
+		<property name="list">
+			<list>
+				<value>sdfsd</value>
+				<value>dssf</value>
+				<value>dsafs</value>
+			</list>
+		</property>
 	</bean>
 </beans>

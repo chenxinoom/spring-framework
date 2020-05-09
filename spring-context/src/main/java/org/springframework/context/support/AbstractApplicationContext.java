@@ -524,37 +524,46 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			//这里是在子类中启动refreshBeanFactory的地方
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				//设置beanfactory的后置处理器
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
 				//扫描符合spring的类的路径
 				//执行spring对外postProcessors接口的实现类，可以达到和spring一起创建springbean对象，比如mybatis实现这个接口实现mybatis的功能
+				//调用后置处理器，这些后置处理器是在Bean定义中的向容器注册的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				//注册Bean后置处理器，在bean创建过程中调用
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				//对上下文中消息源进行初始化
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
+				//初始化上下文中的事件机制
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
+				//初始化其他特殊的Bean
 				onRefresh();
 
 				// Check for listener beans and register them.
+				//检查监听bean并且将这些bean向容器中注册
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
-				//创建bean对象
+				//实例化所有的不是懒加载的单例
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
+				//发布容器
 				finishRefresh();
 			}
 
@@ -565,9 +574,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				}
 
 				// Destroy already created singletons to avoid dangling resources.
+				//防止bean资源占用 在异常处理中，销毁已经在前面过程中生成的单例bean
 				destroyBeans();
 
 				// Reset 'active' flag.
+				//重置 'actuve'标志
 				cancelRefresh(ex);
 
 				// Propagate exception to caller.

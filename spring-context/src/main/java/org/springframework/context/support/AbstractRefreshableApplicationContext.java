@@ -121,9 +121,10 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 * initializing a fresh bean factory for the next phase of the context's lifecycle.
 	 */
 	@Override
+	//保证refresh之后使用的是新建立起来的ioc容器
 	//编程式获取ioc容器的第二三四步
 	protected final void refreshBeanFactory() throws BeansException {
-		//如果存在则销毁和关闭容器
+		//如果存在容器则则销毁和关闭容器
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();

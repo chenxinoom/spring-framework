@@ -164,6 +164,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 	protected Resource getResourceByPath(String path) {
 		if (path.startsWith("/")) {
 			path = path.substring(1);
+//			System.out.println("dayin");
 		}
 		return new FileSystemResource(path);
 	}
