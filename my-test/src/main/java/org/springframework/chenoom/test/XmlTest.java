@@ -1,12 +1,6 @@
 package org.springframework.chenoom.test;
 
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-
-import java.util.List;
 
 public class XmlTest {
 	public static void main(String[] args) {
