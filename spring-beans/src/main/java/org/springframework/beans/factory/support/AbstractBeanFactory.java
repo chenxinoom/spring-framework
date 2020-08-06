@@ -272,7 +272,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			// Check if bean definition exists in this factory.
-			//对ioc容器中的beandefintion是否存在进行检查 检查是否能在beanfactiry中需要的bena，如果在当前的工厂中区不到 就去父工厂中
+			//对ioc容器中的beanDefintion是否存在进行检查 检查是否能在beanfactiry中需要的bean，如果在当前的工厂中区不到 就去父工厂中
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
@@ -325,11 +325,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				}
 
 				// Create bean instance.
-				//通过嗲用createBean方法创建singLeton bean实例
+				//通过调用createBean方法创建singLeton bean实例
 				if (mbd.isSingleton()) {
 					//第二次执行getSingleton方法
+					//这个lambda表达式是工厂
 					sharedInstance = getSingleton(beanName, () -> {
 						try {
+							//获取bean
 							return createBean(beanName, mbd, args);
 						}
 						catch (BeansException ex) {
