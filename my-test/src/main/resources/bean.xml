@@ -4,13 +4,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="xml" class="org.springframework.chenoom.entry.xml" scope="singleton" >
-		<property name="name" value="chen"></property>
-		<property name="list">
-			<list>
-				<value>sdfsd</value>
-				<value>dssf</value>
-				<value>dsafs</value>
-			</list>
-		</property>
+<!--		<property name="name" value="chen"></property>-->
+<!--		<property name="list">-->
+<!--			<list>-->
+<!--				<value>sdfsd</value>-->
+<!--				<value>dssf</value>-->
+<!--				<value>dsafs</value>-->
+<!--			</list>-->
+<!--		</property>-->
+		<property name="teacher" ref="teacher"></property>
 	</bean>
+
+	<bean id="teacher" class="org.springframework.chenoom.entry.Teacher" scope="singleton"></bean>
 </beans>

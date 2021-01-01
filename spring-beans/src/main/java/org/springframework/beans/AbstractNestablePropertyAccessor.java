@@ -69,6 +69,7 @@ import org.springframework.util.StringUtils;
  * @see BeanWrapper
  * @see PropertyEditorRegistrySupport
  */
+//Accessor 访问 在bean组件中
 public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyAccessor {
 
 	/**
@@ -236,6 +237,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	public void setPropertyValue(String propertyName, @Nullable Object value) throws BeansException {
 		AbstractNestablePropertyAccessor nestedPa;
 		try {
+			//根据属性名获取BeanWrapImpl对象，支持多重属性的递归分析处理
 			nestedPa = getPropertyAccessorForPropertyPath(propertyName);
 		}
 		catch (NotReadablePropertyException ex) {
@@ -253,6 +255,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 			String propertyName = pv.getName();
 			AbstractNestablePropertyAccessor nestedPa;
 			try {
+				//getPropertyAccessorForPropertyPath根据属性名的表达式获取访问该属性的属性访问器AbstractNestablePropertyAccessor ，即BeanWrapperImpl
 				nestedPa = getPropertyAccessorForPropertyPath(propertyName);
 			}
 			catch (NotReadablePropertyException ex) {
@@ -272,13 +275,16 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	protected void setPropertyValue(PropertyTokenHolder tokens, PropertyValue pv) throws BeansException {
 		if (tokens.keys != null) {
+			//是集合类进行注入
 			processKeyedProperty(tokens, pv);
 		}
 		else {
+			//对非集合类进行注入
 			processLocalProperty(tokens, pv);
 		}
 	}
 
+	//这个是原来的setPropertyValue方法
 	@SuppressWarnings("unchecked")
 	private void processKeyedProperty(PropertyTokenHolder tokens, PropertyValue pv) {
 		Object propValue = getPropertyHoldingValue(tokens);
@@ -413,6 +419,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	}
 
 	private void processLocalProperty(PropertyTokenHolder tokens, PropertyValue pv) {
+		// 获取PropertyHandler，内部实现是从cachedIntrospectionResults中取出该属性的PropertyDescriptor，
+		// 然后取出属性的PropertyType, ReadMethod , WriteMethod
+		// 得到的属性值 由PropertyHandler持有
 		PropertyHandler ph = getLocalPropertyHandler(tokens.actualName);
 		if (ph == null || !ph.isWritable()) {
 			if (pv.isOptional()) {
@@ -834,8 +843,10 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 			this.nestedPropertyAccessors = new HashMap<>();
 		}
 		// Get value of bean property.
+		//根据属性名获取PropertyTokenHolder
 		PropertyTokenHolder tokens = getPropertyNameTokens(nestedProperty);
 		String canonicalName = tokens.canonicalName;
+		// 根据PropertyTokenHolder获取该内嵌属性的实例化对象 这里没有getBean 已经getBean完成
 		Object value = getPropertyValue(tokens);
 		if (value == null || (value instanceof Optional && !((Optional<?>) value).isPresent())) {
 			if (isAutoGrowNestedPaths()) {
@@ -847,6 +858,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		}
 
 		// Lookup cached sub-PropertyAccessor, create new one if not found.
+		// 把上面获取到的内嵌对象的实例，包裹为一个新的BeanWrapperImpl，然后把该BeanWrapperImpl缓存到本级的缓存对象nestedPropertyAccessors。
+		// 例如，上一节中的Car的driver属性，在car本级，维护了一个缓存对象nestedPropertyAccessors，
+		// 第一次访问内嵌属性driver时，将会为driver创建PropertyAccessor，并缓存到nestedPropertyAccessors中
 		AbstractNestablePropertyAccessor nestedPa = this.nestedPropertyAccessors.get(canonicalName);
 		if (nestedPa == null || nestedPa.getWrappedInstance() != ObjectUtils.unwrapOptional(value)) {
 			if (logger.isTraceEnabled()) {

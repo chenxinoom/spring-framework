@@ -2,6 +2,7 @@ package org.springframework.chenoom.test;
 
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.chenoom.entry.xml;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -20,6 +21,8 @@ public class XmlTest {
 //		xmlBeanDefinitionReader.loadBeanDefinitions(classPathResource);		//载入
 //
 //		Object xml = defaultListableBeanFactory.getBean("xml");
+
+		xml xml1 = new xml();
 		FileSystemXmlApplicationContext fileSystemXmlApplicationContext = new FileSystemXmlApplicationContext("classpath:bean.xml");
 		Object xml = fileSystemXmlApplicationContext.getBean("xml");
 		System.out.println(xml);

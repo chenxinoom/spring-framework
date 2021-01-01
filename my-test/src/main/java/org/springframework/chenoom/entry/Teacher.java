@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component("teacher")
 public class Teacher {
 
-	@Autowired
-	Student student;
-
-	public Teacher(){
-		System.out.println("Teacher");
-	}
+//	@Autowired
+//	Student student;
+//
+//	public Teacher(){
+//		System.out.println("Teacher");
+//	}
 }

@@ -526,6 +526,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// Prepare the bean factory for use in this context.
 			// 为BeanFactory配置容器特性，例如类加载器、事件处理器等
+		//容器需要的准备工作
 			prepareBeanFactory(beanFactory);
 
 			try {
@@ -663,6 +664,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * such as the context's ClassLoader and post-processors.
 	 * @param beanFactory the BeanFactory to configure
 	 */
+	//容器的初始化
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		// Tell the internal bean factory to use the context's class loader etc.
 		beanFactory.setBeanClassLoader(getClassLoader());
@@ -994,6 +996,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #registerShutdownHook()
 	 */
 	@Override
+	//关闭容器 容器的销毁
 	public void close() {
 		synchronized (this.startupShutdownMonitor) {
 			doClose();

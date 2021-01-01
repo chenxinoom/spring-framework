@@ -5,6 +5,7 @@ import java.util.List;
 public class xml {
 	private String name;
 	private List<String> list;
+	private Teacher teacher;
 
 	public String getName() {
 		return name;
@@ -22,11 +23,21 @@ public class xml {
 		this.list = list;
 	}
 
-	@Override
-	public String toString() {
-		return "xml{" +
-				"name='" + name + '\'' +
-				", list=" + list +
-				'}';
+	public void setTeacher(Teacher teacher){
+		this.teacher = teacher;
 	}
+
+	public Teacher getTeacher(){
+
+		return teacher;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "xml{" +
+//				"name='" + name + '\'' +
+//				", list=" + list +
+//				", teacher=" + teacher +
+//				'}';
+//	}
 }
